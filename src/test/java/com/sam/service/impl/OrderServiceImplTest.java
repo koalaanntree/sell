@@ -17,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
@@ -54,7 +52,7 @@ public class OrderServiceImplTest {
         orderDTO.setOrderDetailList(orderDetailList);
 
         OrderDTO result = orderService.create(orderDTO);
-        log.info("[创建订单] result = {}",result);
+        log.info("[创建订单] result = {}", result);
 
         Assert.assertNotNull(result);
 
@@ -75,7 +73,7 @@ public class OrderServiceImplTest {
 
         Page<OrderDTO> orderDTOPage = orderService.findList(buyerOpenid, request);
 
-        Assert.assertNotEquals(0,orderDTOPage.getTotalElements());
+        Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
     }
 
     @Test
@@ -92,7 +90,6 @@ public class OrderServiceImplTest {
     public void finish() throws Exception {
 
         OrderDTO orderDTO = orderService.findOne(ORDER_ID);
-
 
         OrderDTO result = orderService.finish(orderDTO);
 
