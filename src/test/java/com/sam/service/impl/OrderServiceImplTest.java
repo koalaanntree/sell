@@ -98,6 +98,7 @@ public class OrderServiceImplTest {
 
         Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
 
+
     }
 
     @Test
