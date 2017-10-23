@@ -6,6 +6,7 @@ import com.sam.dto.OrderDTO;
 import com.sam.enums.ResultEnum;
 import com.sam.exception.SellException;
 import com.sam.form.OrderForm;
+import com.sam.service.BuyerService;
 import com.sam.service.OrderService;
 import com.sam.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
 
 
     //创建订单
@@ -79,8 +83,7 @@ public class BuyerOrderController {
                                      @RequestParam("orderId") String orderId)
 
     {
-        //TODO 不安全的做法，改进
-        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
         return ResultVOUtil.success(orderDTO);
     }
 
@@ -89,11 +92,7 @@ public class BuyerOrderController {
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderId") String orderId) {
-        //TODO 不安全的做法，改进
-        OrderDTO orderDTO = orderService.findOne(orderId);
-
-        orderService.cancel(orderDTO);
-
+        buyerService.cancelOrder(openid, orderId);
         return ResultVOUtil.success();
     }
 }
