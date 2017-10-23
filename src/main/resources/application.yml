@@ -17,3 +17,6 @@ server:
 #  file: /Users/huangxin/Desktop/projects/IN_HOME/weChat/logs/sell.log
 #  level:
 #    com.sam.LoggerTest: debug
+wechat:
+  mpAppId: wxb9f5023f0ab41e6f
+  mpAppSecret: d6066093dc11650e9a1bf33c166656e2
