@@ -18,5 +18,9 @@ server:
 #  level:
 #    com.sam.LoggerTest: debug
 wechat:
-  mpAppId: wxb9f5023f0ab41e6f
-  mpAppSecret: d6066093dc11650e9a1bf33c166656e2
+  mpAppId: wxd898fcb01713c658
+#  mpAppSecret: d6066093dc11650e9a1bf33c166656e2
+  mchId: 1483469312
+  mchKey: C5245D70627C1F8E9964D494B0735025
+  keyPath: /var/weixin_cert/h5.p12
+  notifyUrl: http://samcle.natapp1.cc/sell/pay/notify
