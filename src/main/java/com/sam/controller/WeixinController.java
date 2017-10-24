@@ -17,7 +17,7 @@ public class WeixinController {
         log.info("进入auth方法...");
         log.info("code={}",code);
 
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxb9f5023f0ab41e6f&secret=d6066093dc11650e9a1bf33c166656e2&code=" + code + "&grant_type=authorization_code ";
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxb9f5023f0ab41e6f&secret=d6066093dc11650e9a1bf33c166656e2&code="+code+"&grant_type=authorization_code";
 
         RestTemplate restTemplate = new RestTemplate();
 
