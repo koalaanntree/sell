@@ -6,6 +6,7 @@ import com.lly835.bestpay.model.PayResponse;
 import com.lly835.bestpay.service.impl.BestPayServiceImpl;
 import com.sam.dto.OrderDTO;
 import com.sam.service.PayService;
+import com.sam.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,9 @@ public class PayServiceImpl implements PayService {
         payRequest.setOrderId(orderDTO.getOrderId());
         payRequest.setOrderName(ORDER_NAME);
         payRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
-        log.info("[微信支付] request={}", payRequest);
+        log.info("[微信支付] request={}", JsonUtil.toJson(payRequest));
         PayResponse payResponse = bestPayService.pay(payRequest);
-        log.info("[微信支付] response={}",payResponse);
+        log.info("[微信支付] response={}",JsonUtil.toJson(payResponse));
 
     }
 

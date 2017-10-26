@@ -26,7 +26,7 @@ public class PayServiceImplTest {
     @Test
     public void create() throws Exception {
 
-        OrderDTO orderDTO = orderService.findOne("1508760348182477229");
+        OrderDTO orderDTO = orderService.findOne("1508760123043836322");
         payService.create(orderDTO);
 
     }
