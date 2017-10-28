@@ -27,7 +27,7 @@ public class WechatController {
     public String authorize(@RequestParam("returnUrl") String returnUrl) {
         //1、配置
         //2、调用方法
-        String url = "http://samcle.natapp1.cc/sell/wechat/userInfo";
+        String url = "http://sell.springboot.cn/sell/wechat/userInfo";
         String redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAUTH2_SCOPE_BASE,
                 URLEncoder.encode(returnUrl));
         log.info("[微信网页授权]获取code,result={}", redirectUrl);
@@ -49,6 +49,7 @@ public class WechatController {
             throw new SellException(ResultEnum.WX_MP_ERROR.getCode(), e.getError().getErrorMsg());
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
+        log.info("openid=====>{}",openId);
 
         return "redirect:" + returnUrl + "?openid=" + openId;
     }
