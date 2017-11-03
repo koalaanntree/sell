@@ -1,12 +1,12 @@
 <html>
-    <#include "../common/header.ftl">
+<#include "../common/header.ftl">
 <body>
 
 <div id="wrapper" class="toggled">
 
-    <#--边栏sidebar-->
-    <#include "../common/nav.ftl">
-    <#--主要内容区域content-->
+<#--边栏sidebar-->
+<#include "../common/nav.ftl">
+<#--主要内容区域content-->
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row clearfix">
@@ -15,28 +15,31 @@
                         <thead>
                         <tr>
                             <th>
-                                订单id
+                                商品id
                             </th>
                             <th>
-                                姓名
+                                名称
                             </th>
                             <th>
-                                手机号
+                                图片
                             </th>
                             <th>
-                                地址
+                                单价
                             </th>
                             <th>
-                                金额
+                                库存
                             </th>
                             <th>
-                                订单状态
+                                描述
                             </th>
                             <th>
-                                支付状态
+                                类目
                             </th>
                             <th>
                                 创建时间
+                            </th>
+                            <th>
+                                修改时间
                             </th>
                             <th colspan="2">
                                 操作
@@ -44,38 +47,43 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list orderDTOPage.content as orderDTO>
+                        <#list ProductInfoPage.content as ProductInfo>
                         <tr>
                             <td>
-                            ${orderDTO.orderId}
+                            ${ProductInfo.productId}
                             </td>
                             <td>
-                            ${orderDTO.buyerName}
+                            ${ProductInfo.productName}
                             </td>
                             <td>
-                            ${orderDTO.buyerPhone}
+                                <img height="100" width="100" src="${ProductInfo.productIcon}">
                             </td>
                             <td>
-                            ${orderDTO.buyerAddress}
+                            ${ProductInfo.productPrice}
                             </td>
                             <td>
-                            ${orderDTO.orderAmount}
+                            ${ProductInfo.productStock}
                             </td>
                             <td>
-                            ${orderDTO.getOrderStatusEnum().getMessage()}
+                            ${ProductInfo.productDescription}
                             </td>
                             <td>
-                            ${orderDTO.getPayStatusEnum().getMessage()}
+                            ${ProductInfo.categoryType}
                             </td>
                             <td>
-                            ${orderDTO.createTime}
+                            ${ProductInfo.createTime}
                             </td>
                             <td>
-                                <a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a>
+                            ${ProductInfo.updateTime}
                             </td>
                             <td>
-                                <#if orderDTO.getOrderStatusEnum().getMessage() =="新订单">
-                                    <a href="/sell/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
+                                <a href="/sell/seller/product/index?productId=${ProductInfo.productId}">修改</a>
+                            </td>
+                            <td>
+                                <#if ProductInfo.getProductStatusEnum().getMessage() =="在架">
+                                    <a href="/sell/seller/product/off_sale?productId=${ProductInfo.productId}">下架</a>
+                                <#else >
+                                    <a href="/sell/seller/product/on_sale?productId=${ProductInfo.productId}">上架</a>
                                 </#if>
                             </td>
                         </tr>
@@ -95,7 +103,7 @@
                             <a href="/sell/seller/order/list?page=${currentPage - 1}&size=${size}">上一页</a>
                         </li>
                     </#if>
-                    <#list 1..orderDTOPage.getTotalPages() as index>
+                    <#list 1..ProductInfoPage.getTotalPages() as index>
                         <#if currentPage == index>
                             <li class="disabled">
                                 <a href="#">${index}</a>
@@ -106,7 +114,7 @@
                             </li>
                         </#if>
                     </#list>
-                    <#if currentPage gte orderDTOPage.getTotalPages()>
+                    <#if currentPage gte ProductInfoPage.getTotalPages()>
                         <li class="disabled">
                             <a href="#">下一页</a>
                         </li>
