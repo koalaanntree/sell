@@ -12,9 +12,7 @@ import com.sam.enums.ResultEnum;
 import com.sam.exception.SellException;
 import com.sam.repository.OrderDetailRepository;
 import com.sam.repository.OrderMasterRepository;
-import com.sam.service.OrderService;
-import com.sam.service.PayService;
-import com.sam.service.ProductService;
+import com.sam.service.*;
 import com.sam.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -46,6 +44,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PayService payService;
+
+    @Autowired
+    private PushMessageService pushMessageService;
+
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional
@@ -92,6 +96,9 @@ public class OrderServiceImpl implements OrderService {
         ).collect(Collectors.toList());
 
         productService.decreaseStock(cartDTOList);
+
+        //发送websocket消息
+        webSocket.sendMessage(orderDTO.getOrderId());
 
         return orderDTO;
     }
@@ -188,6 +195,9 @@ public class OrderServiceImpl implements OrderService {
             log.error("[完结订单]更新失败,orderMaster={}", orderMaster);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+
+        //推送微信模板消息(异常需要捕获，不需要抛出影响主要业务)
+        pushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }
