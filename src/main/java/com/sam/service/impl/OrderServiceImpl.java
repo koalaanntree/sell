@@ -9,6 +9,7 @@ import com.sam.dto.OrderDTO;
 import com.sam.enums.OrderStatusEnum;
 import com.sam.enums.PayStatusEnum;
 import com.sam.enums.ResultEnum;
+import com.sam.exception.ResponseBankException;
 import com.sam.exception.SellException;
 import com.sam.repository.OrderDetailRepository;
 import com.sam.repository.OrderMasterRepository;
@@ -66,6 +67,7 @@ public class OrderServiceImpl implements OrderService {
             ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIT);
+//                throw new ResponseBankException();
             }
             //2.计算订单总价
             orderAmount = productInfo.getProductPrice()
